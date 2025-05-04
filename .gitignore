@@ -1,0 +1,7 @@
+creds/
+terraform-the-hard-way-tf
+terraform-the-hard-way-tf.pub
+**/.env
+**/terraform.tfstate*
+**/.terraform
+**/.terraform.lock.hcl

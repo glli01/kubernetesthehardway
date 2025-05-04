@@ -4,24 +4,20 @@ variable "debian_12_instance_ami" {
   default     = "ami-0779caf41f9ba54f0"
 }
 
-variable "aws_pub_key" {
-  type        = string
-  description = "The public key used for our key pair. Passed in through TF_VAR_aws_pub_key"
-  default     = ""
-}
-
-# assert
-check "aws_pub_key_exists" {
-  assert {
-    condition     = var.aws_pub_key != ""
-    error_message = "${var.aws_pub_key} returned '', meaning it has not been set. Please set it using TF_VAR_aws_pub_key"
-  }
-}
-
 # Create a key pair
 resource "aws_key_pair" "kubernetes-the-hard-way-tf" {
   key_name   = "kubernetes-the-hard-way-tf"
-  public_key = var.aws_pub_key
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+# RSA key of size 4096 bits
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
+# Store locally
+resource "local_file" "tf_key" {
+  content  = tls_private_key.rsa.private_key_pem
+  filename = "terraform-the-hard-way-tf"
 }
 
 # Create the jump-box
@@ -36,16 +32,32 @@ resource "aws_instance" "jump-box" {
     volume_type = "gp3"
   }
 
-  subnet_id = aws_subnet.resource[1].id
   # network_interface {
-  #   network_interface_id = aws_network_interface.
+  #   network_interface_id = aws_network_interface.jump-box_vnic.id
+  #   device_index = 0
   # }
+
+  associate_public_ip_address = true
+
+  subnet_id = aws_subnet.resource[1].id
 
   # Assign to security group and VPC
   vpc_security_group_ids = [aws_security_group.allow_tls.id, aws_security_group.allow_ssh.id, aws_security_group.allow_http.id]
 
-
+  tags = {
+    Name = "jump-box"
+  }
 }
+
+# Create VNIC to allow jump-box to connect to the internet
+# resource "aws_network_interface" "jump-box_vnic"{
+#   subnet_id = aws_subnet.resource[1].id
+#
+#   security_groups = [aws_security_group.allow_tls.id, aws_security_group.allow_ssh.id, aws_security_group.allow_http.id]
+#   tags = {
+#     Name = "jump-box_vnic"
+#   }
+# }
 
 # Create server (2GB RAM - 20GB Storage - 1 CPU)
 

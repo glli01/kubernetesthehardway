@@ -2,6 +2,8 @@
 Finished setting up the jump-box with hosts entries, essentially mapped each of the hosts in the /etc/hosts file so that we can ssh to the other hosts using aliases like so: `ssh server` from the jump-box. This marks the completion of `03-compute-resources.md`
 
 1. Created EIP for jump-box for easier readability. No other issues were had after installing the locales.
+2. Finished `04-certificate-authority.md` which essentially generated a certificate authority certificate and key. Then for each cert, we generated private keys, csrs, and then certificates using these generated ca certificate and keys.
+We then distributed these ca certs and private keys to the hosts.
 
 # 9 May, 2025
 Created machines.txt, made all machines sshable from root - NOTE, this required us to remove some lines from /root/.ssh/authorized_keys (The lines until `ssh-rsa`).

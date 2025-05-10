@@ -1,0 +1,5 @@
+
+# Kubernetes The Hard Way
+10.0.2.154 server.kubernetes.local server
+10.0.2.54 node-0.kubernetes.local node-0
+10.0.2.80 node-1.kubernetes.local node-1

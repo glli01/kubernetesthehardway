@@ -1,3 +1,5 @@
+# 11 May, 2025
+Setup kube-configs and made sure that they were accessible through kubernetes' [Node authorizer](https://kubernetes.io/docs/reference/access-authn-authz/node/) This means that the kubeconfigs had to be generated with the public key associated to each node.
 # 10 May, 2025
 Finished setting up the jump-box with hosts entries, essentially mapped each of the hosts in the /etc/hosts file so that we can ssh to the other hosts using aliases like so: `ssh server` from the jump-box. This marks the completion of `03-compute-resources.md`
 

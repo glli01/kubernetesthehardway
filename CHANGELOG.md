@@ -1,3 +1,20 @@
+# 13 May, 2025
+1. Finished (08-bootstrapping-kubernetes-controllers.md)
+This took quite a bit of effort because apparently in 04, the certificate and key generated for the `admin` user did not generate properly. The key was then missing in the admin.kubeconfig, and so they were regenerated and then proceeded through the setup.
+
+Summary: Followed a lot of commands - seems like we setup the kubernetes API server / control plane... There are a lot of components here to study.
+
+# 12 May, 2025
+1. Setup an encryption config and key. (Finished 06-data-encryption keys).
+2. Setup etcd and learned about etcd (a distributed key-value store with watching and strong consistency through the raft algorithm)
+[etcd](etcd.io)
+
+Also learned about the RAFT algorithm, which is the algorithm behind the consistency of etcd.
+You can read more here:
+[Raft algorithm](https://raft.github.io/)
+The paper is [here](https://raft.github.io/raft.pdf)
+- Essentially raft is a simple but robust consistency algorithm, that functions via a heartbeat and a running log. The log determines what operations have occurred and followers must confirm operations before they are considered complete.
+
 # 11 May, 2025
 Setup kube-configs and made sure that they were accessible through kubernetes' [Node authorizer](https://kubernetes.io/docs/reference/access-authn-authz/node/) This means that the kubeconfigs had to be generated with the public key associated to each node.
 # 10 May, 2025

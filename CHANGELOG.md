@@ -1,3 +1,6 @@
+# 14 May, 2025
+1. Did ansible and terraform stuff :)
+
 # 13 May, 2025
 1. Finished (08-bootstrapping-kubernetes-controllers.md)
 This took quite a bit of effort because apparently in 04, the certificate and key generated for the `admin` user did not generate properly. The key was then missing in the admin.kubeconfig, and so they were regenerated and then proceeded through the setup.

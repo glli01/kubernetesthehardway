@@ -1,5 +1,5 @@
 # 15 May, 2025
-Ansivble :)
+Ansible :)
 
 # 14 May, 2025
 1. Did ansible and terraform stuff :)

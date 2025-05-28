@@ -109,12 +109,16 @@ resource "aws_security_group" "allow_http" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4" {
-  security_group_id = aws_security_group.allow_tls.id
-  cidr_ipv4         = aws_vpc.khw-vpc.cidr_block
-  from_port         = 80
-  ip_protocol       = "tcp"
-  to_port           = 80
+resource "aws_vpc_security_group_ingress_rule" "allow_http_ingress_ipv4" {
+  security_group_id = aws_security_group.allow_http.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = -1
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_http_egress_ipv4" {
+  security_group_id = aws_security_group.allow_http.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = -1
 }
 
 # SSH
